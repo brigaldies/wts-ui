@@ -1,0 +1,12 @@
+When testing locally where the SPA and the server are co-located on the same computer, you may run into the
+following CORS (Cross-Origin Resource Sharing) error when making a REST call to the server:
+
+Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on
+the requested resource. Origin 'http://localhost:8080' is therefore not allowed access.
+
+Tomcat 7 has a filter to configure CORS (See https://tomcat.apache.org/tomcat-7.0-doc/config/filter.html#CORS_Filter).
+However, I was not able to make it work.
+
+As a work around, I disabled CORS checking in Chrome by running Chrome with the following command-line arguments:
+
+Chrome.exe --disable-web-security --user-data-dir
