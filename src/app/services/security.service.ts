@@ -19,6 +19,10 @@ export class SecurityService {
     console.log(this.securityContext);
   }
 
+  isLoggedIn(): boolean {
+    return this.securityContext != null;
+  }
+
   getUsername(): string{
     return this.securityContext ? this.securityContext.username : 'No user logged in!';
   }
@@ -52,6 +56,7 @@ export class SecurityService {
           loginSubject.next(loginResponse);
           loginSubject.complete();
         }
+        // TODO: Investigate why the final block is not called when there is a failure.
         // ,
         // () => {
         //   console.log('SecurityService.login: Final block');
