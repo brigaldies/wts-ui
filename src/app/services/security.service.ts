@@ -8,7 +8,8 @@ import {SecurityContext} from "../domain/security/securitycontext";
 @Injectable()
 export class SecurityService {
 
-  private authUrl: string = 'http://localhost:8080/api/login';
+  // TODO: Externalize the WTS Server's URL configuration
+  private authUrl: string = 'http://localhost:8080/wts-server/api/login';
 
   private securityContext: SecurityContext = null;
 
