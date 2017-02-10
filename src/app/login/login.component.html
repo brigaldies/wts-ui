@@ -11,6 +11,7 @@
               placeholder="Please enter your user name"
               class="form-control"
               formControlName="username"
+              (keyup)="keyup($event)"
             >
           </div>
         </div>
@@ -25,6 +26,7 @@
               placeholder="Please enter your password"
               class="form-control"
               formControlName="password"
+              (keyup)="keyup($event)"
             >
           </div>
         </div>
@@ -36,3 +38,12 @@
       </div>
     </form>
   </div>
+</div>
+<div class="row">
+  <div *ngIf="loginInProcess">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+  </div>
+  <div class="alert alert-danger" *ngIf="loginFailed">
+    Invalid credentials! Please try again.
+  </div>
+</div>

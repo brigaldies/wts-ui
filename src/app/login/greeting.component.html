@@ -1,0 +1,5 @@
+<p>Hello {{securityService.getUsername()}}</p>
+<p>You have the following roles:</p>
+<ul *ngFor="let role of securityService.getUserRoles()">
+  <li>{{role}}</li>
+</ul>
