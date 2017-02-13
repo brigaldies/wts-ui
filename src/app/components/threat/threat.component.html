@@ -1,0 +1,25 @@
+<div class="row">
+  <!-- The row is divided in two panels -->
+  <!-- First 6 columns-wide panel: List of threats -->
+  <div class="col-md-6">
+
+    <!-- Loading icon -->
+    <spinner [visible]="isLoading"></spinner>
+
+    <!-- Number of threats -->
+    <div class="alert alert-danger" role="alert" *ngIf="!isLoading">
+      {{ (threats) ? threats.length : 0 }} threats.
+    </div>
+
+    <ul class="list-group posts" *ngIf="!isLoading">
+      <li class="list-group-item" *ngFor="let threat of threats; let i=index">
+        {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{threat.temperatureAlert}}, {{ threat.threatDateBegin}}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Second 6 columns-wide panel: Selected Threat detail -->
+  <div class="col-md-6">
+    Place holder for selected threat detail
+  </div>
+</div>

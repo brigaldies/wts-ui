@@ -1,7 +1,7 @@
 export class SecurityContext {
-  constructor(public accessToken: string,
+  constructor(public access_token: string,
               public expires_in: number,
-              public refreshToken: string,
+              public refresh_token: string,
               public roles: string[],
               public token_type: string,
               public username: string) {

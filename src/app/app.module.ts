@@ -4,11 +4,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {routing} from "./app.routing";
 import {AppComponent} from "./app.component";
-import {LoginComponent} from "./login/login.component";
-import {HomeComponent} from "./home/home.component";
+import {LoginComponent} from "./components/login/login.component";
+import {HomeComponent} from "./components/home/home.component";
 import {SecurityService} from "./services/security.service";
-import {GreetingComponent} from "./login/greeting.component";
-import {ThreatComponent} from "./threat/threat.component";
+import {GreetingComponent} from "./components/login/greeting.component";
+import {ThreatComponent} from "./components/threat/threat.component";
+import {ThreatService} from "./services/threat.service";
+import {SpinnerComponent} from "./components/spinner/spinner.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import {ThreatComponent} from "./threat/threat.component";
     LoginComponent,
     HomeComponent,
     GreetingComponent,
-    ThreatComponent
+    ThreatComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import {ThreatComponent} from "./threat/threat.component";
     ReactiveFormsModule,
     routing
   ],
-  providers: [SecurityService],
+  providers: [SecurityService, ThreatService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

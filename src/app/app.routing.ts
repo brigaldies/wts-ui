@@ -1,10 +1,9 @@
-import {Routes, RouterModule} from '@angular/router';
-import {LoginComponent} from "./login/login.component";
+import {Routes, RouterModule} from "@angular/router";
+import {LoginComponent} from "./components/login/login.component";
 import {ModuleWithProviders} from "@angular/core";
-import {AppComponent} from "./app.component";
-import {HomeComponent} from "./home/home.component";
-import {GreetingComponent} from "./login/greeting.component";
-import {ThreatComponent} from "./threat/threat.component";
+import {HomeComponent} from "./components/home/home.component";
+import {GreetingComponent} from "./components/login/greeting.component";
+import {ThreatComponent} from "./components/threat/threat.component";
 
 // The routes.
 const APP_ROUTES: Routes = [

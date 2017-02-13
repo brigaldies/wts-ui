@@ -9,9 +9,16 @@ import {SecurityContext} from "../domain/security/securitycontext";
 export class SecurityService {
 
   // TODO: Externalize the WTS Server's URL configuration
-  private authUrl: string = 'http://localhost:8080/wts-server/api/login';
+  // Note: When making the AJAX call, the browser will prepend to the URL below the domain and port number
+  // from the browser's address bar.
 
-  private securityContext: SecurityContext = null;
+  // When deployed in Tomcat
+  // private authUrl: string = '/wts-server/api/login';
+
+  // When running from IntelliJ
+  private authUrl: string = 'http://localhost:8080/api/login';
+
+  securityContext: SecurityContext = null;
 
   constructor(private http: Http) {
   }
@@ -24,7 +31,11 @@ export class SecurityService {
     return this.securityContext != null;
   }
 
-  getUsername(): string{
+  getSecurityToken(): string {
+    return this.securityContext ? this.securityContext.access_token : '';
+  }
+
+  getUsername(): string {
     return this.securityContext ? this.securityContext.username : 'No user logged in!';
   }
 
