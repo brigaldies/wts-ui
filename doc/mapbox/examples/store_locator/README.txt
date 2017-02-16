@@ -1,0 +1,1 @@
+Store locator on the Mapbox documentation site: https://www.mapbox.com/help/building-a-store-locator/

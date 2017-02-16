@@ -12,14 +12,31 @@
     </div>
 
     <ul class="list-group posts" *ngIf="!isLoading">
-      <li class="list-group-item" *ngFor="let threat of threats; let i=index">
+      <li class="list-group-item" [class.active]="isActive(i)" *ngFor="let threat of threats; let i=index" (click)="onClick(threat)">
         {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{threat.temperatureAlert}}, {{ threat.threatDateBegin}}
       </li>
     </ul>
   </div>
 
   <!-- Second 6 columns-wide panel: Selected Threat detail -->
-  <div class="col-md-6">
-    Place holder for selected threat detail
+  <div class="col-md-6" *ngIf="!isLoading && selectedThreat">
+    <ul>
+      <li>{{ selectedThreat.organization }}</li>
+      <li>{{ selectedThreat.assetType }}</li>
+      <li>{{ selectedThreat.assetAddress.latitude }}</li>
+      <li>{{ selectedThreat.assetAddress.longitude }}</li>
+      <sebm-google-map [latitude]="selectedThreat.assetAddress.latitude" [longitude]="selectedThreat.assetAddress.longitude">
+        <sebm-google-map-marker
+          [label]="selectedThreat.assetType"
+          [latitude]="selectedThreat.assetAddress.latitude"
+          [longitude]="selectedThreat.assetAddress.longitude"
+          (markerClick)="clickedMarker()"
+        >
+          <sebm-google-map-info-window>
+            <strong>{{selectedThreat.threatType}}</strong>
+          </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+      </sebm-google-map>
+    </ul>
   </div>
 </div>

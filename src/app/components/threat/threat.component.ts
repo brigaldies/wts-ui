@@ -11,6 +11,7 @@ export class ThreatComponent implements OnInit {
 
   isLoading: Boolean = true;
   threats: Threat[] = []
+  selectedThreat: Threat = null
 
   constructor(private threatService: ThreatService) {
   }
@@ -34,5 +35,24 @@ export class ThreatComponent implements OnInit {
           this.isLoading = false;
         }
       )
+  }
+
+  /**
+   * Threat selection.
+   */
+  onClick(threat: Threat) {
+    this.selectedThreat = threat;
+    console.log(this.selectedThreat);
+  }
+
+  /**
+   * Is a post currently selected/active?
+   */
+  isActive(threatIndex: number) {
+    return this.selectedThreat != null && this.threats[threatIndex] == this.selectedThreat;
+  }
+
+  clickedMarker() {
+    console.log('clickedMarker');
   }
 }

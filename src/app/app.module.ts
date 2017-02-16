@@ -11,6 +11,7 @@ import {GreetingComponent} from "./components/login/greeting.component";
 import {ThreatComponent} from "./components/threat/threat.component";
 import {ThreatService} from "./services/threat.service";
 import {SpinnerComponent} from "./components/spinner/spinner.component";
+import {AgmCoreModule} from "angular2-google-maps/core";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import {SpinnerComponent} from "./components/spinner/spinner.component";
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCX7saNYe5929y6t8YQ0v2aEdX22g8kNjc'
+    }),
     routing
   ],
   providers: [SecurityService, ThreatService],
