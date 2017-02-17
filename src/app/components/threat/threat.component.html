@@ -12,31 +12,41 @@
     </div>
 
     <ul class="list-group posts" *ngIf="!isLoading">
-      <li class="list-group-item" [class.active]="isActive(i)" *ngFor="let threat of threats; let i=index" (click)="onClick(threat)">
-        {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{threat.temperatureAlert}}, {{ threat.threatDateBegin}}
+      <li class="list-group-item" [class.active]="isActive(i)" *ngFor="let threat of threats; let i=index"
+          (click)="onClick(threat)">
+        <span class="badge">{{ threat.temperatureAlert }}</span>
+        {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{ threat.threatDateBegin}}
       </li>
     </ul>
   </div>
 
   <!-- Second 6 columns-wide panel: Selected Threat detail -->
   <div class="col-md-6" *ngIf="!isLoading && selectedThreat">
-    <ul>
-      <li>{{ selectedThreat.organization }}</li>
-      <li>{{ selectedThreat.assetType }}</li>
-      <li>{{ selectedThreat.assetAddress.latitude }}</li>
-      <li>{{ selectedThreat.assetAddress.longitude }}</li>
-      <sebm-google-map [latitude]="selectedThreat.assetAddress.latitude" [longitude]="selectedThreat.assetAddress.longitude">
-        <sebm-google-map-marker
-          [label]="selectedThreat.assetType"
-          [latitude]="selectedThreat.assetAddress.latitude"
-          [longitude]="selectedThreat.assetAddress.longitude"
-          (markerClick)="clickedMarker()"
-        >
-          <sebm-google-map-info-window>
-            <strong>{{selectedThreat.threatType}}</strong>
-          </sebm-google-map-info-window>
-        </sebm-google-map-marker>
-      </sebm-google-map>
-    </ul>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title">Organization: {{ selectedThreat.organization }}, Asset: {{ selectedThreat.assetType }}, Location: {{ selectedThreat.assetAddress.city }}</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="badge">{{ selectedThreat.threatType }}</span>Threat Type:</li>
+          <li class="list-group-item"><span class="badge">{{ selectedThreat.threatSeverity }}</span>Threat Severity:</li>
+          <li class="list-group-item"><span class="badge">{{ selectedThreat.temperatureAlert }}</span>Temperature Alert:</li>
+          <li class="list-group-item"><span class="badge">{{ selectedThreat.threatDateBegin }}</span>Threat Begin Date:</li>
+        </ul>
+        <sebm-google-map [latitude]="selectedThreat.assetAddress.latitude"
+                         [longitude]="selectedThreat.assetAddress.longitude">
+          <sebm-google-map-marker
+            [label]="''+selectedThreat.temperatureAlert"
+            [latitude]="selectedThreat.assetAddress.latitude"
+            [longitude]="selectedThreat.assetAddress.longitude"
+            (markerClick)="clickedMarker()"
+          >
+            <sebm-google-map-info-window>
+              <strong>{{selectedThreat.assetType}}, {{selectedThreat.threatType}}, {{ selectedThreat.temperatureAlert}}</strong>
+            </sebm-google-map-info-window>
+          </sebm-google-map-marker>
+        </sebm-google-map>
+      </div>
+    </div>
   </div>
 </div>
