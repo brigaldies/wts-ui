@@ -6,9 +6,14 @@
     <!-- Loading icon -->
     <spinner [visible]="isLoading"></spinner>
 
+    <!-- TODO: Organize threats by location...-->
+    <!--<ul class="nav nav-pills nav-justified">-->
+      <!--<li *ngFor="let location of locationThreats" role="presentation" class="active">{{ location.city}}</li>-->
+    <!--</ul>-->
+
     <!-- Number of threats -->
     <div class="alert alert-danger" role="alert" *ngIf="!isLoading">
-      {{ (threats) ? threats.length : 0 }} threats.
+      {{ (threats) ? threats.length : 0 }} threats in {{ (locationThreats) ? locationThreats.length : 0 }} locations
     </div>
 
     <ul class="list-group posts" *ngIf="!isLoading">
@@ -18,6 +23,7 @@
         {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{ threat.threatDateBegin}}
       </li>
     </ul>
+
   </div>
 
   <!-- Second 6 columns-wide panel: Selected Threat detail -->
@@ -33,18 +39,34 @@
           <li class="list-group-item"><span class="badge">{{ selectedThreat.temperatureAlert }}</span>Temperature Alert:</li>
           <li class="list-group-item"><span class="badge">{{ selectedThreat.threatDateBegin }}</span>Threat Begin Date:</li>
         </ul>
+
+        <!-- Google maps for Angular: See docs at https://angular-maps.com -->
         <sebm-google-map [latitude]="selectedThreat.assetAddress.latitude"
-                         [longitude]="selectedThreat.assetAddress.longitude">
+                         [longitude]="selectedThreat.assetAddress.longitude"
+                         [zoom]="10"
+        >
+          <!-- Put a marker to display the temperature -->
           <sebm-google-map-marker
             [label]="''+selectedThreat.temperatureAlert"
             [latitude]="selectedThreat.assetAddress.latitude"
             [longitude]="selectedThreat.assetAddress.longitude"
+            [opacity]="0.8"
             (markerClick)="clickedMarker()"
           >
             <sebm-google-map-info-window>
               <strong>{{selectedThreat.assetType}}, {{selectedThreat.threatType}}, {{ selectedThreat.temperatureAlert}}</strong>
             </sebm-google-map-info-window>
           </sebm-google-map-marker>
+
+          <!-- Draw a circle, just to show that we can! -->
+          <sebm-google-map-circle
+            [latitude]="selectedThreat.assetAddress.latitude"
+            [longitude]="selectedThreat.assetAddress.longitude"
+            [radius]="10000"
+            [fillOpacity]="0.2"
+            [fillColor]="red"
+          >
+          </sebm-google-map-circle>
         </sebm-google-map>
       </div>
     </div>

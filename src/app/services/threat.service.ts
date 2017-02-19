@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {SecurityService} from "./security.service";
 import {Threat} from "../domain/threat/threat";
@@ -20,15 +20,20 @@ export class ThreatService {
   /**
    * Retrieve the active threats.
    */
-  getThreats(): Observable<Threat[]> {
+  getThreats(): Observable<any> {
     // console.log(this.securityService);
     let securityToken = this.securityService.securityContext ? this.securityService.securityContext.access_token : '';
     // console.log('Using security token ' + securityToken);
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + securityToken);
     // console.log(headers);
+
+    // Query parameters
+    let params = new URLSearchParams();
+    params.set('forecast', '10'); // In number of days
+
     console.log('Calling ' + this.threatsUrl);
-    return this.http.get(this.threatsUrl, {headers: headers})
-      .map(response => response.json().threats);
+    return this.http.get(this.threatsUrl, {search: params, headers: headers})
+      .map(response => response.json());
   }
 }

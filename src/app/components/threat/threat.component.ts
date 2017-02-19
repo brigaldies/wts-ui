@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ThreatService} from "../../services/threat.service";
 import {Threat} from "../../domain/threat/threat";
+import {LocationThreat} from "../../domain/threat/locationthreat";
 
 @Component({
   selector: 'app-threat',
@@ -11,6 +12,7 @@ export class ThreatComponent implements OnInit {
 
   isLoading: Boolean = true;
   threats: Threat[] = []
+  locationThreats: LocationThreat[] = []
   selectedThreat: Threat = null
 
   constructor(private threatService: ThreatService) {
@@ -23,15 +25,17 @@ export class ThreatComponent implements OnInit {
     this.threatService.getThreats()
       .subscribe(
         result => {
-          //console.log(result);
-          this.threats = result;
+          console.log(result);
+          this.threats = result.threats;
+          this.locationThreats = result.locations
         },
         error => {
           console.log(error);
           this.isLoading = false;
         },
         () => {
-          console.log((this.threats) ? this.threats.length : 0 + ' threats loaded.');
+          console.log((this.threats) ? this.threats.length : 0 + ' total threats.');
+          console.log((this.locationThreats) ? this.locationThreats.length : 0 + ' locations.');
           this.isLoading = false;
         }
       )
