@@ -12,6 +12,8 @@ import {ThreatComponent} from "./components/threat/threat.component";
 import {ThreatService} from "./services/threat.service";
 import {SpinnerComponent} from "./components/spinner/spinner.component";
 import {AgmCoreModule} from "angular2-google-maps/core";
+import { HeaderComponent } from './components/header/header.component';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     HomeComponent,
     GreetingComponent,
     ThreatComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    HeaderComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

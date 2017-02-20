@@ -6,18 +6,20 @@
     <!-- Loading icon -->
     <spinner [visible]="isLoading"></spinner>
 
-    <!-- TODO: Organize threats by location...-->
-    <!--<ul class="nav nav-pills nav-justified">-->
-      <!--<li *ngFor="let location of locationThreats" role="presentation" class="active">{{ location.city}}</li>-->
-    <!--</ul>-->
-
     <!-- Number of threats -->
     <div class="alert alert-danger" role="alert" *ngIf="!isLoading">
       {{ (threats) ? threats.length : 0 }} threats in {{ (locationThreats) ? locationThreats.length : 0 }} locations
     </div>
 
-    <ul class="list-group posts" *ngIf="!isLoading">
-      <li class="list-group-item" [class.active]="isActive(i)" *ngFor="let threat of threats; let i=index"
+    <!-- Group threats by city -->
+    <ul class="nav nav-pills" *ngIf="!isLoading">
+      <li *ngFor="let location of locationThreats; let i=index" role="presentation" [class.active]="location === selectedLocation">
+        <a (click)="onSelectLocation(location)">{{ location.city + ' (' + location.threats.length + ')'}} </a>
+      </li>
+    </ul>
+
+    <ul class="list-group posts" *ngIf="!isLoading && selectedLocation">
+      <li class="list-group-item" [class.active]="isActive(i)" *ngFor="let threat of selectedLocation.threats; let i=index"
           (click)="onClick(threat)">
         <span class="badge">{{ threat.temperatureAlert }}</span>
         {{i+1}} - {{ threat.organization}}, {{ threat.assetType }}, {{ threat.threatType }}, {{ threat.threatSeverity }}, {{ threat.threatDateBegin}}

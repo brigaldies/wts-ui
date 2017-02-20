@@ -1,23 +1,4 @@
+<app-header></app-header>
 <div class="container">
-  <div class="row">
-    <div class="page-header">
-      <h1>{{title}}</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-10">
-      <button [routerLink]="['/login']" routerLinkActive="active" class="btn btn-primary">Login</button>
-      <button [routerLink]="['/threat']" routerLinkActive="active" class="btn btn-danger" *ngIf="securityService.isLoggedIn()">Threats</button>
-      <button [routerLink]="['']" routerLinkActive="active" class="btn btn-primary">Home</button>
-      <hr>
-      <!-- Render the routing -->
-      <div class="container">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <hr>
-    Footer
-  </div>
+  <router-outlet></router-outlet>
 </div>

@@ -13,6 +13,7 @@ export class ThreatComponent implements OnInit {
   isLoading: Boolean = true;
   threats: Threat[] = []
   locationThreats: LocationThreat[] = []
+  selectedLocation: LocationThreat = null
   selectedThreat: Threat = null
 
   constructor(private threatService: ThreatService) {
@@ -28,6 +29,11 @@ export class ThreatComponent implements OnInit {
           console.log(result);
           this.threats = result.threats;
           this.locationThreats = result.locations
+          this.selectedLocation = this.locationThreats.length > 0 ? this.locationThreats[0] : null;
+          console.log('Selected location: ' + this.selectedLocation.city)
+          if (this.selectedLocation) {
+            this.selectedThreat = (this.selectedLocation.threats.length > 0) ? this.selectedLocation.threats[0] : null;
+          }
         },
         error => {
           console.log(error);
@@ -42,6 +48,16 @@ export class ThreatComponent implements OnInit {
   }
 
   /**
+   * Location selection
+   * @param location
+   */
+  onSelectLocation(location: LocationThreat) {
+    this.selectedLocation = location;
+    this.selectedThreat = (this.selectedLocation.threats.length > 0) ? this.selectedLocation.threats[0] : null;
+    console.log('Selected location: ' + this.selectedLocation.city)
+  }
+
+  /**
    * Threat selection.
    */
   onClick(threat: Threat) {
@@ -53,7 +69,8 @@ export class ThreatComponent implements OnInit {
    * Is a post currently selected/active?
    */
   isActive(threatIndex: number) {
-    return this.selectedThreat != null && this.threats[threatIndex] == this.selectedThreat;
+    // return this.selectedThreat != null && this.threats[threatIndex] == this.selectedThreat;
+    return this.selectedThreat != null && this.selectedLocation.threats[threatIndex] == this.selectedThreat;
   }
 
   clickedMarker() {
