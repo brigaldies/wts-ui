@@ -29,3 +29,47 @@ Run `ng github-pages:deploy` to deploy to GitHub Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Updates
+
+### 7/3/2017
+
+`ng serve` ran into the issue described in [Angular CLI App doesn't run after CLI update](https://github.com/angular/angular-cli/issues/4679)
+
+On my CSRA Windows 7 Dell laptop, I followed the directions provided at the above ticket URL:
+
+```
+rmdir /S node_modules
+npm install --save-dev @angular/cli@latest
+```
+
+I removed the line '"angular-cli": "1.0.0-beta.26",' from package.json (As instructed), then ran:
+
+```
+npm install
+ng serve
+```
+
+The 'ng serve' indicated that I had to perform the following migration in angular-cli.json:
+
+Replace:
+
+```
+"environments": {
+        "source": "environments/environment.ts",
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+```
+
+With:
+
+```
+"environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+```
+
+
